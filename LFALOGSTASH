@@ -1,0 +1,50 @@
+############################################################
+#  
+# LFA with Logstash Patterns
+#
+# v1.0 	12/29/14 	Doug McClure 	initial version
+#
+#############################################################
+#
+# This is a message sent from a default ITM 6.3 LFA included with SCALA 1.2.0.3 using the default .fmt file
+#
+#$ cat lfa-example.fmt
+#// Matches records for any Log file:
+#//
+#
+#REGEX AllRecords
+#(.*)
+#hostname LABEL
+#-file FILENAME
+#RemoteHost DEFAULT
+#logpath PRINTF("%s",file)
+#text $1
+#END
+#
+#{
+#       "message" => #"\u0001<START>>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u001D\u0000\u0000\u0000\u0004\u0003Al#lRecords;text='12/29/14 13:37:45:032 EST [Thread-52] INFO  - StatisticsTrackerManager : flushStatistics() - Updating summary statistcs, product total, high water mark and product #average.';RemoteHost='';hostname='nc043210';logpath='/opt/scala/driver/logs/UnityApplication.log';END",
+#      "@version" => "1",
+#    "@timestamp" => "2014-12-29T18:44:28.202Z",
+#          "host" => "10.0.0.1",
+#          "type" => "LFA-EIF"
+#}
+#
+# The grok pattern will strip away the EIF wrapper and give us the original raw message sent via the LFA. If you've customized your LFA .fmt file to add custom fields, you will need to create an appropriate grok pattern to parse that.
+#
+#{
+#       "message" => "\u0001<START>>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000?\u0000\u0000\u0000\u0004\u0003AllRecords;text='12/29/14 14:27:17:771 EST [Default Executor-thread-84] INFO  - JAXRSUnitySearchServlet :  id=3';RemoteHost='';hostname='nc043210';logpath='/opt/scala/driver/logs/UnityApplication.log';END",
+#      "@version" => "1",
+#    "@timestamp" => "2014-12-29T19:27:26.098Z",
+#          "host" => "10.0.0.1",
+#          "type" => "LFA-EIF",
+#          "text" => "12/29/14 14:27:17:771 EST [Default Executor-thread-84] INFO  - JAXRSUnitySearchServlet :  id=3",
+#      "hostname" => "nc043210",
+#       "logpath" => "/opt/scala/driver/logs/UnityApplication.log",
+#          "tags" => [
+#        [0] "LFA-EIF-Grokked"
+#    ]
+#}
+#
+#########################################################################
+
+LFAMESSAGE (?m)<START>.*text='%{DATA:text}';RemoteHost='%{DATA:RemoteHost}';hostname='%{DATA:hostname}';logpath='%{DATA:logpath}';END
