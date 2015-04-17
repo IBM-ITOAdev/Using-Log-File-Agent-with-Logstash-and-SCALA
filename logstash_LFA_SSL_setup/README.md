@@ -1,3 +1,5 @@
+**Configuration procedure below was tested on AIX with LFA 6.3. Requires GSKit 8.xx (tested on GSKit 08.00.50.05)**
+
 # 1. SSL configuration on logstash server
 
 The following procedure needs to be done if communication between LFA and logstash needs to be encrypted
