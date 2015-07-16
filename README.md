@@ -4,6 +4,8 @@
 
 1. A sample logstash configuration **(lfa-logstash.conf)**
 2. A logstash grok pattern file for default LFA log messages **(LFALOGSTASH)**
+3. LFA unattended install script
+4. Logstash and LFA SSL configuration procedure and automation scripts
 
 # Deploying the Content Pack
 
