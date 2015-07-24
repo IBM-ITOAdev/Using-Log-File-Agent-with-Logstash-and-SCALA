@@ -126,27 +126,29 @@ while(<LOGFILE_LIST>) {
 	my ($path) = split /,/;
 	my $file = basename($path);
 	my $dirname = dirname($path);
-	$dirname =~ /.*\/(\S+)\/(\S+)/;  	#extract last subdirectory name
+	$dirname =~ /.*\/(\S+)\/(\S+)/;  	      #extract last subdirectory name
 	my $cluster = $1;
 	my $subdir = $2;
-	$file =~ s/\.log//g;  		#strip .log extension 
-	$file = $subdir . "-" .$file;  		# fmt/conf name convention is: last_subdir_name-log_file_name
+	$file =~ s/\.log//g;  		              #strip .log extension 
+	$file = $subdir . "-" .$file;  		      # fmt/conf name convention is: last_subdir_name-log_file_name
 	
-	#additional check if there are no duplicates for the 'last_subdir_name-log_file_name' naming convention (first 15 characters has to be unique)
+	#additional check if there are no duplicates for the 'last_subdir_name-log_file_name' naming convention 
+	#(first 15 characters has to be unique)
 	#if duplicate detected, unique number is added at the beginning of the log file name
+	
 	my $first15 = substr $file, 0, 15;
 	$file = ++$i . $file if $seen{$first15}++; 
 	
-	push @files, "${file}_was.conf" if $opt_t;		#add files to array that will be used by tar function
+	push @files, "${file}_was.conf" if $opt_t;		  #add files to array that will be used by tar function
 	open(CONF,">${file}_was.conf") or die "Cannot open file: $!";
-	binmode CONF;			#binmode is used to create proper UNIX text files even on Windows
+	binmode CONF;			              #binmode is used to create proper UNIX text files even on Windows
 	if($file =~ /TextLog/) {
-		print  CONF "LogSources=${path}\*\012";                    #\012 is the UNIX line ending
+		print  CONF "LogSources=${path}\*\012";       #\012 is the UNIX line ending
 	} else {
-		print CONF "LogSources=${path}\012";			#\012 is the UNIX line ending
+		print CONF "LogSources=${path}\012";		  #\012 is the UNIX line ending
 	}
 	print CONF "BufEvtPath=/apps/scala/logs/${file}_was.cache\012";
-	$conf =~ s/\015//g;			#strip windows CR if script is executed on windows
+	$conf =~ s/\015//g;			                      #strip windows CR if script is executed on windows
 	print CONF $conf;
 	close CONF;
 	
@@ -173,7 +175,9 @@ while(<LOGFILE_LIST>) {
 	close FMT;
 }
 close LOGFILE_LIST;
-Archive::Tar->create_archive( 'lfa_config.tar.gz', COMPRESS_GZIP, @files ) if $opt_t;		#create gzipped tar file from all generated files
+
+#create gzipped tar file from all generated files
+Archive::Tar->create_archive( 'lfa_config.tar.gz', COMPRESS_GZIP, @files ) if $opt_t;		
 
 
 sub print_help {
