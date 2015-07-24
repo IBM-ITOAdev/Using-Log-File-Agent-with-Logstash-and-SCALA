@@ -20,5 +20,5 @@ instance instance_name
 END
 ```
 
-# Automation for LFA Configuration
+## Automation for LFA Configuration
 1. Log File Agents deployed automatically using silent installation [script] (../LFA_silent_install)
