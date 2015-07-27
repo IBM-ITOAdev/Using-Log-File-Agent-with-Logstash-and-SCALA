@@ -33,6 +33,13 @@ The process described above can be automated using scripts.
 
 **Example:**
 
+lfa_config_gen_was.sh
+- generate list of log files to monitor
+- clear previous LFA configuration
+- execute perl script that generates pair of configuration files (.conf and .fmt) for each log file from the list
+- set proper file permissions
+- restart Log File Agent
+
 ```sh
 #!/bin/sh
 
@@ -65,6 +72,10 @@ chown -R scala:scala <LFA_HOME>
 
 su - scala -c <LFA_HOME>/bin/itmcmd agent -o scala1 start lo
 ```
+
+lfa_config_gen_was.pl
+- generates pair of configuration files (.conf and .fmt) for each log file from the input list
+- adds metadata to LFA fmt file
 
 ```perl
 #!/bin/perl
