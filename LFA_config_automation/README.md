@@ -210,5 +210,5 @@ exit 0;
 }
 ```
 
-See attached scripts for examples for Oracle alert log and IBM HTTP Server access and error logs.
+See attached scripts for examples for Websphere Application Server logs, Oracle alert log and IBM HTTP Server access and error logs.
 Scripts can be easily imported end executed on target servers by configuration management tools.
