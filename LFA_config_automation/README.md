@@ -211,5 +211,12 @@ exit 0;
 }
 ```
 
+
+
 See attached scripts for examples for Websphere Application Server logs, Oracle alert log and IBM HTTP Server access and error logs.
 Scripts can be easily imported end executed on target servers by configuration management tools.
+
+Use scripts [**template_lfa_config_gen_xxx.sh**](template_lfa_config_gen_xxx.sh) and [**template_lfa_config_gen_xxx.pl**](template_lfa_config_gen_xxx.pl) if you wand to create custom LFA confi automation.
+See additional comments in template scripts about where to add additional static and dynamic metadata to LFA format file
+
+
