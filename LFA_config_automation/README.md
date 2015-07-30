@@ -1,4 +1,5 @@
 # Automated creation of LFA configuration and format files
+Manual configuration of Log File Agent for Log Analytics can be a time consuming task, especially for environment with big number of log files
 The following solution example shows how to automatically generate LFA configuration and format files for Log Analytics. It is particulary useful in case of streaming miltiple log files using single LFA.
 We will show also how to enrich LFA log entries sent to Log Analytics with additional metadata.
 
@@ -21,8 +22,8 @@ END
 ```
 
 ## Automation for LFA Configuration
-1. Log File Agents deployed automatically using silent installation [**script**] (../LFA_silent_install)
-2. LFA configuration automation
+1. Log File Agents can be deployed automatically using silent installation [**script**] (../LFA_silent_install)
+2. LFA configuration using scripts
 - Determine list of log files on local server, based on rules like paths, file name patterns, modification date, etc.
 - Clear previous LFA configuration
 - Generate pair of configuration files (.conf and .fmt) for each log file based on the rules defined for each log type. Enrich LFA format files with metadata based on logic defined in script code.
